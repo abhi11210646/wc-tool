@@ -1,3 +1,10 @@
+Build go program first.
+
+```console
+go build cmd/wc.go cmd/helper.go
+```
+Execute:
+
 ```console
 abhisekhs@abhisekhs-ThinkPad-L490:~/personal/Projects/wc-tool$ ./wc test.txt test2.txt -l  -w
  2  5 test.txt
