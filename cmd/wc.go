@@ -11,13 +11,13 @@ import (
 type Stats struct {
 	lines int
 	words int
-	chars int
+	bytes int
 }
 
 type WC struct {
 	lineFlag  bool
 	wordFlag  bool
-	charFlag  bool
+	byteFlag  bool
 	flagCount int
 	filePath  []string
 	stats     []Stats
@@ -25,11 +25,11 @@ type WC struct {
 
 func (wc *WC) fileStats(reader io.Reader) Stats {
 	scanner := bufio.NewScanner(reader)
-	stats := Stats{lines: -1} // (No. of lines - 1) = newline counts
+	stats := Stats{lines: -1, bytes: -1} // new line count adjustment
 	for scanner.Scan() {
 		text := scanner.Text()
-		if wc.charFlag {
-			stats.chars += len(text)
+		if wc.byteFlag {
+			stats.bytes += len(text) + 1
 		}
 		if wc.wordFlag {
 			stats.words += len(strings.Fields(text))
@@ -43,10 +43,10 @@ func (wc *WC) fileStats(reader io.Reader) Stats {
 		fmt.Printf("%2d", stats.lines)
 	}
 	if wc.wordFlag {
-		fmt.Printf("%2d", stats.words)
+		fmt.Printf("%3d", stats.words)
 	}
-	if wc.charFlag {
-		fmt.Printf("%2d", stats.chars)
+	if wc.byteFlag {
+		fmt.Printf("%3d", stats.bytes)
 	}
 	return stats
 }
@@ -72,5 +72,6 @@ func main() {
 	} else {
 		reader := bufio.NewReader(os.Stdin)
 		wc.fileStats(reader)
+		fmt.Println()
 	}
 }

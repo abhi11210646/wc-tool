@@ -8,7 +8,7 @@ import (
 func outputHelp() {
 	fmt.Println(`
 	USAGE:  wc [OPTIONS] FILE(S)
-		-m      print the character counts
+		-c      print the byte counts
 		-l      print the newline counts
 		-w      print the word counts  
 	EXAMPLE: 
@@ -32,16 +32,16 @@ func (wc *WC) loadArgs() {
 		case "-w":
 			wc.wordFlag = true
 			wc.flagCount++
-		case "-m":
-			wc.charFlag = true
+		case "-c":
+			wc.byteFlag = true
 			wc.flagCount++
 		default:
 			wc.filePath = append(wc.filePath, args[i])
 		}
 	}
-	if wc.flagCount == 0 { // if no flag then display all
+	if wc.flagCount == 0 { // if no flag then set all
 		wc.lineFlag = true
 		wc.wordFlag = true
-		wc.charFlag = true
+		wc.byteFlag = true
 	}
 }
