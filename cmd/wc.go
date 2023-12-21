@@ -39,15 +39,6 @@ func (wc *WC) fileStats(reader io.Reader) Stats {
 		}
 	}
 	wc.stats = append(wc.stats, stats)
-	if wc.lineFlag {
-		fmt.Printf("%2d", stats.lines)
-	}
-	if wc.wordFlag {
-		fmt.Printf("%3d", stats.words)
-	}
-	if wc.byteFlag {
-		fmt.Printf("%3d", stats.bytes)
-	}
 	return stats
 }
 
@@ -56,22 +47,23 @@ func main() {
 	wc.loadArgs()
 
 	if len(wc.filePath) > 0 {
-		// total := 0
 		for i, file := range wc.filePath {
 			reader, err := os.Open(file)
 			if err != nil {
 				panic(err)
 			}
 			defer reader.Close()
-			wc.fileStats(reader)
+			stats := wc.fileStats(reader)
+			wc.printStats(stats)
 			fmt.Printf(" %s\n", wc.filePath[i])
 		}
 		// if len(wc.stats) > 1 {
-		// fmt.Printf("\t%s\t%s", total, "total")
+		// fmt.Printf("total")
 		// }
 	} else {
 		reader := bufio.NewReader(os.Stdin)
-		wc.fileStats(reader)
+		stats := wc.fileStats(reader)
+		wc.printStats(stats)
 		fmt.Println()
 	}
 }

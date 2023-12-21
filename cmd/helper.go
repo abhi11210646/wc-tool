@@ -45,3 +45,15 @@ func (wc *WC) loadArgs() {
 		wc.byteFlag = true
 	}
 }
+
+func (wc *WC) printStats(stats Stats) {
+	if wc.lineFlag {
+		fmt.Printf("%2d", stats.lines)
+	}
+	if wc.wordFlag {
+		fmt.Printf("%3d", stats.words)
+	}
+	if wc.byteFlag {
+		fmt.Printf("%3d", stats.bytes)
+	}
+}
