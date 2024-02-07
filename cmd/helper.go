@@ -27,33 +27,52 @@ func (wc *WC) loadArgs() {
 		}
 		switch a {
 		case "-l":
-			wc.lineFlag = true
-			wc.flagCount++
+			wc.LineFlag = true
+			wc.FlagCount++
 		case "-w":
-			wc.wordFlag = true
-			wc.flagCount++
+			wc.WordFlag = true
+			wc.FlagCount++
 		case "-c":
-			wc.byteFlag = true
-			wc.flagCount++
+			wc.ByteFlag = true
+			wc.FlagCount++
 		default:
-			wc.filePath = append(wc.filePath, args[i])
+			wc.FilePath = append(wc.FilePath, args[i])
 		}
 	}
-	if wc.flagCount == 0 { // if no flag then set all
-		wc.lineFlag = true
-		wc.wordFlag = true
-		wc.byteFlag = true
+	if wc.FlagCount == 0 { // if no flag then set all
+		wc.LineFlag = true
+		wc.WordFlag = true
+		wc.ByteFlag = true
 	}
 }
 
-func (wc *WC) printStats(stats Stats) {
-	if wc.lineFlag {
-		fmt.Printf("%2d", stats.lines)
+func (wc *WC) printStats() {
+	var t_l, t_w, t_b int
+	for _, s := range wc.Stats {
+		if wc.LineFlag {
+			fmt.Printf("%-3d", s.Lines)
+			t_l += s.Lines
+		}
+		if wc.WordFlag {
+			fmt.Printf("%-3d", s.Words)
+			t_w += s.Words
+		}
+		if wc.ByteFlag {
+			fmt.Printf("%-5d", s.Bytes)
+			t_b += s.Bytes
+		}
+		fmt.Printf("%s\n", s.File)
 	}
-	if wc.wordFlag {
-		fmt.Printf("%3d", stats.words)
-	}
-	if wc.byteFlag {
-		fmt.Printf("%3d", stats.bytes)
+	if len(wc.Stats) > 1 {
+		if t_l != 0 {
+			fmt.Printf("%-3d", t_l)
+		}
+		if t_w != 0 {
+			fmt.Printf("%-3d", t_w)
+		}
+		if t_b != 0 {
+			fmt.Printf("%-5d", t_b)
+		}
+		fmt.Printf("%s\n", "total")
 	}
 }

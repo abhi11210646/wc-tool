@@ -6,9 +6,15 @@ go build cmd/wc.go cmd/helper.go
 Execute:
 
 ```console
-abhisekhs@abhisekhs-ThinkPad-L490:~/personal/Projects/wc-tool$ ./wc test.txt test2.txt -l  -w
- 2  5 test.txt
- 6  8 test2.txt
+abhisekhs@abhisekhs-ThinkPad-L490:~/personal/Projects/wc-tool$ ./wc test.txt test2.txt
+2  5  12   test.txt
+6  8  18   test2222.txt
+8  13 30   total
+
+```
+```console
+abhisekhs@abhisekhs-ThinkPad-L490:~/personal/Projects/wc-tool$ ./wc test.txt
+2  5  12   test.txt
 
 ```
 
