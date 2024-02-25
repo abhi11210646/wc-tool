@@ -20,10 +20,10 @@ func outputHelp() {
 
 func (wc *WC) loadArgs() {
 	args := os.Args[1:]
-	for i, a := range args {
+	for _, a := range args {
 		if a == "-h" {
 			outputHelp()
-			return
+			os.Exit(0)
 		}
 		switch a {
 		case "-l":
@@ -36,7 +36,7 @@ func (wc *WC) loadArgs() {
 			wc.ByteFlag = true
 			wc.FlagCount++
 		default:
-			wc.FilePath = append(wc.FilePath, args[i])
+			wc.FilePath = append(wc.FilePath, a)
 		}
 	}
 	if wc.FlagCount == 0 { // if no flag then set all
@@ -46,7 +46,7 @@ func (wc *WC) loadArgs() {
 	}
 }
 
-func (wc *WC) printStats() {
+func (wc WC) printStats() {
 	var t_l, t_w, t_b int
 	for _, s := range wc.Stats {
 		if wc.LineFlag {
