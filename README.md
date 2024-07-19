@@ -1,8 +1,9 @@
 Build the GO program first.
 
 ```console
-go build cmd/wc.go cmd/helper.go
+go build -o ./wc ./cmd/main.go
 ```
+
 Execute:
 
 ```console

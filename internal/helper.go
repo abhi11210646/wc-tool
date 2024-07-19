@@ -1,4 +1,4 @@
-package main
+package wc
 
 import (
 	"fmt"
@@ -18,7 +18,7 @@ func outputHelp() {
 	  `)
 }
 
-func (wc *WC) loadArgs() {
+func (wc *WC) LoadArgs() {
 	args := os.Args[1:]
 	for _, a := range args {
 		if a == "-h" {
@@ -46,7 +46,7 @@ func (wc *WC) loadArgs() {
 	}
 }
 
-func (wc WC) printStats() {
+func (wc WC) PrintStats() {
 	var t_l, t_w, t_b int
 	for _, s := range wc.Stats {
 		if wc.LineFlag {
